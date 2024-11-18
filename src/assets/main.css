@@ -1,7 +1,14 @@
 @import './base.css';
-body {
-    background: rgb(2,0,36);
-    background: linear-gradient(160deg, #022333 5%, #99b8c7 18%, #8fd9fb 100%);
+
+@media (prefers-color-scheme: light) {
+    body {
+        background: linear-gradient(160deg, #022333 5%, #99b8c7 18%, #8fd9fb 100%);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(160deg, #022333 1%, #99b8c7 10%, #020024FF 90%);
+    }
 }
 
 #app {

@@ -33,11 +33,17 @@ export default function useData() {
     return fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&appid=${apikey}`)
     .then((res) => res.json());
   }
+
+  const hourlyTemperatureForecast = async function (latitude, longitude) {
+    return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apikey}`)
+    .then((res) => res.json());
+  }
   return {
     getForecastByPosition,
     isForecastLoading,
     updateSuggestions,
     isSuggestionLoading,
-    cityByCoords
+    cityByCoords,
+    hourlyTemperatureForecast
   }
 }

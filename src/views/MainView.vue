@@ -21,16 +21,18 @@ const selectCity = async (city) =>{
 }
 
 const deleteCity = (city) => {
-  const cityIndex = selectedCities.value.indexOf(city);
-  selectedCities.value.splice(cityIndex, 1);
+  const result = confirm( `Are you sure you wanna delete ${city.name}?`);
+  if ( result) {
+    const cityIndex = selectedCities.value.indexOf(city);
+    selectedCities.value.splice(cityIndex, 1);
+  }
 }
 
 const setUsersCity = async () =>{
   const userLocation = await useUserPosition();
-
   if (userLocation) {
     const city = await cityByCoords(userLocation.location.latitude, userLocation.location.longitude);
-    selectedCities.value.push(city[0])
+    selectedCities.value.push(city[0]);
   }
 }
 

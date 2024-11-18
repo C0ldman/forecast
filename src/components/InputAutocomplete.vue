@@ -29,7 +29,7 @@ const selectCity = (city) => {
     <div class="wrapper">
         <input @input="fetchSuggestions">
         <loader v-if="isSuggestionLoading"></loader>
-        <ul v-else-if="suggestions && suggestions.length">
+        <ul v-else-if="suggestions && suggestions.length" class="suggestion-list">
             <li v-for="suggestion in suggestions" @click="selectCity(suggestion)" :key="suggestion.lat">
                 {{suggestion.name}} <div v-if="suggestion.state">{{ suggestion.state }}</div>
             </li>
@@ -43,6 +43,11 @@ const selectCity = (city) => {
     display: flex;
     flex-flow: column nowrap;
     align-items: flex-start;
+}
+.suggestion-list {
+    position: absolute;
+    top: 1.3rem;
+    width: 100%
 }
 ul {
     position: relative;

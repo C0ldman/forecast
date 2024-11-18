@@ -42,30 +42,104 @@ const toggleFavourite = function(city) {
   localStorage.setItem("favourites", JSON.stringify(favourites.value));
 }
 
+const {hourlyTemperatureForecast} = useData();
+const blah = async function() {
+  // const a = hourlyTemperatureForecast(props.city.lat, props.city.lon);
+  // console.log('a: ', a);
+}
+
+blah();
+
 onMounted(updateForecast)
 </script>
 
 <template>
-    <loader v-if="isForecastLoading"></loader>
-    <div v-else-if="forecast" class="wrapper">
-        <div> {{ forecast.weather[0].description}}</div>
-        <div><Icon icon="mdi:temperature" /> {{ Math.ceil(forecast.main.temp)}}°</div>
-        <div><Icon icon="mdi:humidity" /> {{ Math.ceil(forecast.main.humidity)}}°</div>
-        <div><Icon icon="mdi:clouds" /> {{ forecast.clouds.all}}</div>
-        <div> <span :style="`transform:rotate(${forecast.wind.deg}deg);    display: inline-block;`"><Icon icon="mdi:arrow-up" /></span>{{ forecast.wind.speed}}</div>
-        <h2><Icon icon="mdi:location" />{{ city.name }}</h2>
-        <h4 v-if="city.state">{{ city.state }}</h4>
-        <span @click="$emit('delete', city)"><Icon icon="mdi:trash" /></span>
-        <span @click="toggleFavourite(city)"><Icon icon="mdi:heart" :class="{'favourite': isFavourite}" /></span>
+    <div class="city-card">
+        <loader v-if="isForecastLoading"></loader>
+        <div v-else-if="forecast" class="wrapper">
+            <div class="row title">
+                <div>
+                    <h1>
+                        <Icon icon="mdi:location" />
+                        {{ city.name }}
+                    </h1>
+                    <h4 v-if="city.state">
+                        {{ city.state }}
+                    </h4>
+                    </div>
+                <div>
+                    <div class="description">
+                        {{ forecast.weather[0].description}}
+                    </div>
+                </div>
+                <div>
+                    <span @click="$emit('delete', city)">
+                        <Icon icon="mdi:trash" class="icon"/>
+                    </span>
+                    <span @click="toggleFavourite(city)">
+                        <Icon icon="mdi:heart" :class="{'favourite': isFavourite}" class="icon"/>
+                    </span></div>
+            </div>
+            <div class="row details">
+                <div>
+                    <Icon icon="mdi:temperature" />
+                    {{ Math.ceil(forecast.main.temp)}}°
+                </div>
+                <div>
+                    <Icon icon="mdi:humidity" />
+                    {{ Math.ceil(forecast.main.humidity)}}°
+                </div>
+                <div>
+                    <Icon icon="mdi:clouds" />
+                    {{ forecast.clouds.all}}
+                </div>
+                <div>
+                    <span :style="`transform:rotate(${forecast.wind.deg}deg);    display: inline-block;`">
+                        <Icon icon="mdi:arrow-up" />
+                    </span>
+                    {{ forecast.wind.speed}}
+                </div>
+            </div>
+        </div>
     </div>
+
 </template>
 
 <style scoped>
+.city-card {
+    width: 100%;
+    border: 0.1rem solid #99b8c7;
+    border-radius: 0.3rem;
+    margin: 1rem;
+}
 .wrapper {
     display: flex;
+    flex-flow: column;
+}
+.row {
+    display: flex;
     flex-flow: row;
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0 1rem;
 }
 .favourite {
     color: red;
+}
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+.title {
+    justify-content: space-between;
+}
+.details {
+    justify-content: space-around;
+    font-size: 1.2rem;
+}
+.description {
+    font-size: 1.5rem;
 }
 </style>
