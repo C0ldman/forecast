@@ -30,7 +30,7 @@ const selectCity = (city) => {
         <input @input="fetchSuggestions">
         <loader v-if="isSuggestionLoading"></loader>
         <ul v-else-if="suggestions && suggestions.length">
-            <li v-for="suggestion in suggestions" @click="selectCity(suggestion)">
+            <li v-for="suggestion in suggestions" @click="selectCity(suggestion)" :key="suggestion.lat">
                 {{suggestion.name}} <div v-if="suggestion.state">{{ suggestion.state }}</div>
             </li>
         </ul>
