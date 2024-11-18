@@ -1,17 +1,36 @@
 <script setup>
 import Loader
   from "@/components/Loader.vue";
+import {
+  ref
+} from "vue";
+import useData
+  from "@/composables/useData.js";
 
-const props = defineProps(['suggestions', 'value', 'isSuggestionLoading']);
-const emit = defineEmits(['input', 'select']);
+const emit = defineEmits(['select']);
+const suggestion = ref('');
+const suggestions = ref(null);
+
+const { updateSuggestions, isSuggestionLoading } = useData();
+
+const fetchSuggestions = async (event) => {
+  suggestions.value = await updateSuggestions(event.target.value);
+}
+
+const selectCity = (city) => {
+  suggestion.value = '';
+  suggestions.value = '';
+  emit('select', city);
+}
+
 </script>
 
 <template>
     <div class="wrapper">
-        <input @input="$emit('input', $event.target.value)">
+        <input @input="fetchSuggestions">
         <loader v-if="isSuggestionLoading"></loader>
         <ul v-else-if="suggestions && suggestions.length">
-            <li v-for="suggestion in suggestions" @click="$emit('select', suggestion)">
+            <li v-for="suggestion in suggestions" @click="selectCity(suggestion)">
                 {{suggestion.name}} <div v-if="suggestion.state">{{ suggestion.state }}</div>
             </li>
         </ul>
@@ -26,6 +45,7 @@ const emit = defineEmits(['input', 'select']);
     align-items: flex-start;
 }
 ul {
+    position: relative;
     list-style-type: none;
     padding: 0;
     margin: 0;

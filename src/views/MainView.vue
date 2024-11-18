@@ -7,46 +7,23 @@ import CityItem
 import InputAutocomplete
   from "@/components/InputAutocomplete.vue";
 
-const apikey = import.meta.env.VITE_WEATHER_API_KEY;
-
-const language = ref(navigator.language);
-const suggestions = ref();
 const selectedCities = ref([]);
-const isSuggestionLoading = ref(false);
 
-const getForecastByPosition = async function (latitude, longitude) {
-    return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${language.value}&units=metric&appid=${apikey}`)
-    .then((res) => res.json());
+const selectCity = async (city) =>{
+  selectedCities.value.push(city);
 }
 
-const updateSuggestions = async function (value) {
-  if (!value.length) return;
-  const city = value[0].toUpperCase() + value.slice(1);
-  isSuggestionLoading.value=true;
-  fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=40&appid=${apikey}`)
-  .then((res) => res.json())
-  .then((res) => {
-    suggestions.value = res;
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => isSuggestionLoading.value=false);
+const deleteCity = (city) => {
+  const cityIndex = selectedCities.value.indexOf(city);
+  selectedCities.value.splice(cityIndex, 1);
 }
-
-const addCity = async (city) =>{
-  const { lat, lon } = city;
-  const forecast = await getForecastByPosition(lat, lon);
-  selectedCities.value.push(forecast);
-  suggestions.value = '';
-}
-
 </script>
 
 <template>
   <div class="wrapper">
-      <input-autocomplete @input="updateSuggestions" @select="addCity" :suggestions="suggestions" :isSuggestionLoading="isSuggestionLoading"></input-autocomplete>
-      <city-item v-for="city in selectedCities" :city="city"></city-item>
+      <div v-if="selectedCities.length >= 5">Only 5 cities allowed. Please remove some to add new.</div>
+      <div v-else>Add city: <input-autocomplete @select="selectCity"></input-autocomplete></div>
+      <city-item v-for="city in selectedCities" @delete="deleteCity" :city="city" :key="city.name"></city-item>
   </div>
 </template>
 
