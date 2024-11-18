@@ -10,8 +10,11 @@ import InputAutocomplete
 import {
   useUserPosition
 } from "@/composables/userPosition.js";
+import useData
+  from "@/composables/useData.js";
 
 const selectedCities = ref([]);
+const { cityByCoords } = useData();
 
 const selectCity = async (city) =>{
   selectedCities.value.push(city);
@@ -26,14 +29,8 @@ const setUsersCity = async () =>{
   const userLocation = await useUserPosition();
 
   if (userLocation) {
-    selectedCities.value.push({
-      "name": userLocation.city.name,
-      "local_names": userLocation.city.names,
-      "lat": userLocation.location.latitude,
-      "lon": userLocation.location.longitude,
-      "country": userLocation.country.name,
-      "state": userLocation.state.name
-    })
+    const city = await cityByCoords(userLocation.location.latitude, userLocation.location.longitude);
+    selectedCities.value.push(city[0])
   }
 }
 
