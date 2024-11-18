@@ -17,9 +17,13 @@ const fetchSuggestions = async (event) => {
   suggestions.value = await updateSuggestions(event.target.value);
 }
 
-const selectCity = (city) => {
+const clearInput = () => {
   suggestion.value = '';
   suggestions.value = '';
+}
+
+const selectCity = (city) => {
+  clearInput()
   emit('select', city);
 }
 
@@ -27,7 +31,7 @@ const selectCity = (city) => {
 
 <template>
     <div class="wrapper">
-        <input @input="fetchSuggestions">
+        <input @input="fetchSuggestions" v-model="suggestion" @keyup.enter="selectCity(suggestions[0])"/>
         <loader v-if="isSuggestionLoading"></loader>
         <ul v-else-if="suggestions && suggestions.length" class="suggestion-list">
             <li v-for="suggestion in suggestions" @click="selectCity(suggestion)" :key="suggestion.lat">
