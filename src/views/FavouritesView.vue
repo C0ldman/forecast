@@ -22,4 +22,7 @@ const favourites = ref(saved ? Array.from(JSON.parse(saved)) : []);
     align-items: center;
       width: 100%;
   }
+  .icon.delete {
+      display: none;
+  }
 </style>

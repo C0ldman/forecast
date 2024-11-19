@@ -68,7 +68,7 @@ onMounted(updateForecast)
                 </div>
                 <div>
                     <span @click="$emit('delete', city)">
-                        <Icon icon="mdi:trash" class="icon"/>
+                        <Icon icon="mdi:trash" class="icon delete"/>
                     </span>
                     <span @click="toggleFavourite(city)">
                         <Icon icon="mdi:heart" :class="{'favourite': isFavourite}" class="icon"/>
