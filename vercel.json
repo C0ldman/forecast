@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "http://api.openweathermap.org/(.*)",
+      "source": "https://api.openweathermap.org/",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
@@ -10,7 +10,7 @@
       ]
     },
     {
-      "source": "https://api.geoapify.com/(.*)",
+      "source": "https://api.geoapify.com/",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
