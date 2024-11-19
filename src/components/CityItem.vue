@@ -9,6 +9,8 @@ import {
 } from "vue";
 import Loader
   from "@/components/Loader.vue";
+import TemperatureForecast
+  from "@/components/TemperatureForecast.vue";
 
 const props = defineProps(['city']);
 const emit = defineEmits(['delete']);
@@ -41,14 +43,6 @@ const toggleFavourite = function(city) {
   }
   localStorage.setItem("favourites", JSON.stringify(favourites.value));
 }
-
-const {hourlyTemperatureForecast} = useData();
-const blah = async function() {
-  // const a = hourlyTemperatureForecast(props.city.lat, props.city.lon);
-  // console.log('a: ', a);
-}
-
-blah();
 
 onMounted(updateForecast)
 </script>
@@ -100,6 +94,7 @@ onMounted(updateForecast)
                     {{ forecast.wind.speed}}
                 </div>
             </div>
+            <temperature-forecast :city="city"></temperature-forecast>
         </div>
     </div>
 
@@ -111,6 +106,7 @@ onMounted(updateForecast)
     border: 0.1rem solid #99b8c7;
     border-radius: 0.3rem;
     margin: 1rem;
+    backdrop-filter: saturate(0.8);
 }
 .wrapper {
     display: flex;

@@ -35,7 +35,7 @@ export default function useData() {
   }
 
   const hourlyTemperatureForecast = async function (latitude, longitude) {
-    return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apikey}`)
+    return fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,daily,alerts&units=metric&appid=${apikey}`)
     .then((res) => res.json());
   }
   return {
