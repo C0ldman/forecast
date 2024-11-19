@@ -51,7 +51,8 @@ const selectCity = (city) => {
 .suggestion-list {
     position: absolute;
     top: 1.3rem;
-    width: 100%
+    width: 100%;
+    z-index: 2;
 }
 ul {
     position: relative;

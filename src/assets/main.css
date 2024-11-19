@@ -17,7 +17,7 @@
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
-    border: 1px solid red;
+    backdrop-filter: saturate(90%);
 }
 
 a,
@@ -29,7 +29,7 @@ a,
 }
 
 nav {
-    backdrop-filter: saturate(50%) blur(8px);
+    backdrop-filter: saturate(80%);
     background: rgba(255, 255, 255, 0.33);
     width: 100%
 }
