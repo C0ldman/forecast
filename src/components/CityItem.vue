@@ -103,7 +103,7 @@ onMounted(updateForecast)
 <style scoped>
 .city-card {
     width: 100%;
-    border: 0.1rem solid #99b8c7;
+    border: 0.1rem solid #6badcd;
     border-radius: 0.3rem;
     margin: 1rem;
     backdrop-filter: saturate(0.8);
@@ -137,5 +137,8 @@ onMounted(updateForecast)
 }
 .description {
     font-size: 1.5rem;
+}
+.favourites-wrapper .delete {
+    display: none;
 }
 </style>
