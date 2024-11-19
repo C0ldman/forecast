@@ -21,7 +21,7 @@ export default function useData() {
     if (!value.length) return;
     const city = value[0].toUpperCase() + value.slice(1);
     isSuggestionLoading.value=true;
-    return fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=40&appid=${apikey}`)
+    return fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=40&appid=${apikey}`)
     .then((res) => res.json())
     .catch((err) => {
       console.log(err);
@@ -30,7 +30,7 @@ export default function useData() {
   }
 
   const cityByCoords = async function (latitude, longitude) {
-    return fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&appid=${apikey}`)
+    return fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&appid=${apikey}`)
     .then((res) => res.json());
   }
 
